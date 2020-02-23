@@ -14,7 +14,7 @@
 #include "stdio.h"
 #include "stm32f4xx_hal_rcc.h"
 /************************************************
-
+这是第一次在keil里修改文件，尝试用atom自动识别，然后push到github
 ************************************************/
 
 #define BUFFER_SIZE     30                          // Define the payload size here
