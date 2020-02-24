@@ -3,7 +3,7 @@
 #include "usart.h"
 #include "led.h"
 #include "key.h"
-#include "lcd.h"
+//#include "lcd.h"
 //#include "sdram.h"
 #include "SX1278.h"
 #include "timer.h"
@@ -13,6 +13,7 @@
 #include "sx1276.h"
 #include "stdio.h"
 #include "stm32f4xx_hal_rcc.h"
+#include "sx12xxEiger.h"
 /************************************************
 这是第一次在keil里修改文件，尝试用atom自动识别，然后push到github
 ************************************************/
@@ -33,12 +34,11 @@ int main(void)
 	char sendBuf[20];	 
 	HAL_Init();                     //初始化HAL库   
 	Stm32_Clock_Init(336,8,2,7);   //设置时钟,168Mhz
-	aa = HAL_RCC_GetSysClockFreq();
-	bb = HAL_RCC_GetHCLKFreq();
-	cc = HAL_RCC_GetPCLK1Freq();
-	dd = HAL_RCC_GetPCLK2Freq();
-	delay_init(180);                //初始化延时函数
-	uart_init(115200);              //初始化USART	
+	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);//echo added
+	BoardInit();
+	TIM3_Init(10-1,8400-1);   			//1ms lora用 林 修改 echo modified
+		uart_init(115200);              //初始化USART	
+	delay_init(168);                //初始化延时函数 echo modified
 	delay_ms(10);
 	while(1){
 		delay_ms(10);
@@ -47,7 +47,6 @@ int main(void)
 	LED_Init();                     //初始化LED 
 	KEY_Init();                     //初始化按键
 	SX1278_Init();    		    		  //初始化SX1278 
-	TIM3_Init(10-1,9000-1);   			//1ms lora用
 	SX1276Reset();	
 	while(SX1278_Check())
 	{

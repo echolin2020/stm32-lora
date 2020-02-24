@@ -16,8 +16,8 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //24L01操作线
-#define SX1278_CE     PGout(12)  //24L01片选信号 lora reset
-#define SX1278_CSN    PEout(3)  //SPI片选信号	 lora cs
+#define SX1278_CE     PEout(4)  //24L01片选信号 lora reset
+#define SX1278_CSN    PEout(2)  //SPI片选信号	 lora cs
 
 //24L01发送接收数据宽度定义
 #define TX_ADR_WIDTH    5   	//5字节的地址宽度

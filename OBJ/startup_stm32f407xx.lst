@@ -880,10 +880,10 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=..\obj\startup_stm32f407xx.d -o..\obj\startup_stm32f407xx.o -ID
-:\stm32\software\NRF24L01lora\USER\RTE -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP
-\1.0.8\Device\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__UVISION_VER
-SION SETA 514" --predefine="STM32F40_41xxx SETA 1" --list=..\obj\startup_stm32f
-407xx.lst ..\CORE\startup_stm32f407xx.s
+:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE -IC:\Keil_v5\ARM\PACK\Keil\ST
+M32F4xx_DFP\1.0.8\Device\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__
+UVISION_VERSION SETA 514" --predefine="STM32F40_41xxx SETA 1" --list=..\obj\sta
+rtup_stm32f407xx.lst ..\CORE\startup_stm32f407xx.s
 
 
 

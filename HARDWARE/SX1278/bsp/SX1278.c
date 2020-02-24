@@ -34,18 +34,19 @@ void SX1278_SPI_Init(void)
 void SX1278_Init(void)
 {
     GPIO_InitTypeDef GPIO_Initure;
-    __HAL_RCC_GPIOG_CLK_ENABLE();			//开启GPIOG时钟
+    __HAL_RCC_GPIOE_CLK_ENABLE();			//开启GPIOG时钟  改成PE2,4
     
-    GPIO_Initure.Pin=GPIO_PIN_10|GPIO_PIN_12; //PG10,12 cs / rest
+    GPIO_Initure.Pin=GPIO_PIN_2|GPIO_PIN_4; //PE2,4 cs / rest
     GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  //推挽输出
     GPIO_Initure.Pull=GPIO_PULLUP;          //上拉
     GPIO_Initure.Speed=GPIO_SPEED_HIGH;     //高速
-    HAL_GPIO_Init(GPIOG,&GPIO_Initure);     //初始化
+    HAL_GPIO_Init(GPIOE,&GPIO_Initure);     //初始化
     
     SPI2_Init();    		                //初始化SPI2  
     SX1278_SPI_Init();                //针对NRF的特点修改SPI的设置
-	  SX1278_CE=0; 			                //使能24L01
-	  SX1278_CSN=1;			                //SPI片选取消	 		 	 
+	  SX1278_CE=1; 			                //使能LORA SX1278 使能应该让reset置位1  林  修改   echo modified
+	  SX1278_CSN=1;			                //SPI片选取消	 	
+		delay_ms(10);
 }
 //检测24L01是否存在
 //返回值:0，成功;1，失败	

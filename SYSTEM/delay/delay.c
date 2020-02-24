@@ -80,7 +80,7 @@ void delay_osschedunlock(void)
 //ticks:延时的节拍数
 void delay_ostimedly(u32 ticks)
 {
-#ifdef CPU_CFG_CRITICAL_METHOD
+#if CPU_CFG_CRITICAL_METHOD
 	OS_ERR err; 
 	OSTimeDly(ticks,OS_OPT_TIME_PERIODIC,&err); //UCOSIII延时采用周期模式
 #else
@@ -173,8 +173,8 @@ void delay_us(u32 nus)
 {		
 	u32 ticks;
 	u32 told,tnow,tcnt=0;
-	u32 reload=SysTick->LOAD;				//LOAD的值	    	 
-	ticks=nus*fac_us; 						//需要的节拍数 
+	u32 reload=SysTick->LOAD;//LOAD的值	    	 
+	ticks=nus*fac_us;//需要的节拍数 us就是168 ms就是168000
 	told=SysTick->VAL;        				//刚进入时的计数器值
 	while(1)
 	{
@@ -195,6 +195,8 @@ void delay_ms(u16 nms)
 {
 	u32 i;
 	for(i=0;i<nms;i++) delay_us(1000);
+	
+
 }
 #endif
 			 
