@@ -44,9 +44,8 @@ void SX1278_Init(void)
     
     SPI2_Init();    		                //初始化SPI2  
     SX1278_SPI_Init();                //针对NRF的特点修改SPI的设置
-	  SX1278_CE=1; 			                //使能LORA SX1278 使能应该让reset置位1  林  修改   echo modified
+	  SX1278_CE=0; //使能LORA SX1278 使能应该让reset置位1  林  修改   echo modified
 	  SX1278_CSN=1;			                //SPI片选取消	 	
-		delay_ms(10);
 }
 //检测24L01是否存在
 //返回值:0，成功;1，失败	

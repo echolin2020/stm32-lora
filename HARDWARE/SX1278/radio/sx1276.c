@@ -32,7 +32,7 @@
 /*!
  * SX1276 registers variable
  */
-uint8_t SX1276Regs[0x70];
+uint8_t SX1276Regs[0x70];//There are totally 0x70 registers in sx1278
 
 static bool LoRaOn = false;
 static bool LoRaOnState = false;
@@ -42,8 +42,8 @@ void SX1276Init( void )
 	uint8_t TempReg;
 	
     // Initialize FSK and LoRa registers structure
-    SX1276 = ( tSX1276* )SX1276Regs;
-    SX1276LR = ( tSX1276LR* )SX1276Regs;
+    SX1276 = ( tSX1276* )SX1276Regs;//FSK registers
+    SX1276LR = ( tSX1276LR* )SX1276Regs;//LoRa registers
 
     SX1276InitIo( );
     
@@ -70,7 +70,7 @@ void SX1276Init( void )
 #else
 
     LoRaOn = true;          //LORA = 1
-    SX1276SetLoRaOn( LoRaOn );
+    SX1276SetLoRaOn( LoRaOn );//Set lora mode, set the IOs, set standby mode, and read out all the value of 0x70 registers
     // Initialize LoRa modem
     SX1276LoRaInit( );
     
@@ -112,13 +112,14 @@ void SX1276SetLoRaOn( bool enable )
         SX1276Write( REG_LR_OPMODE, SX1276LR->RegOpMode );
         
         SX1276LoRaSetOpMode( RFLR_OPMODE_STANDBY );
+				//DATASHEET Page 46 Table18
                                         // RxDone               RxTimeout                   FhssChangeChannel           CadDone
         SX1276LR->RegDioMapping1 = RFLR_DIOMAPPING1_DIO0_00 | RFLR_DIOMAPPING1_DIO1_00 | RFLR_DIOMAPPING1_DIO2_00 | RFLR_DIOMAPPING1_DIO3_00;
                                         // CadDetected          ModeReady
         SX1276LR->RegDioMapping2 = RFLR_DIOMAPPING2_DIO4_00 | RFLR_DIOMAPPING2_DIO5_00;
         SX1276WriteBuffer( REG_LR_DIOMAPPING1, &SX1276LR->RegDioMapping1, 2 );
         
-        SX1276ReadBuffer( REG_LR_OPMODE, SX1276Regs + 1, 0x70 - 1 );
+        SX1276ReadBuffer( REG_LR_OPMODE, SX1276Regs + 1, 0x70 - 1 );//Read out all the value of 0x70 registers
     }
     else
     {

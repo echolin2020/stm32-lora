@@ -114,7 +114,7 @@ void SPI1_SetSpeed(u8 SPI_BaudRatePrescaler)
 //SPI速度设置函数
 //SPI速度=fAPB1/分频系数
 //@ref SPI_BaudRate_Prescaler:SPI_BAUDRATEPRESCALER_2~SPI_BAUDRATEPRESCALER_2 256
-//fAPB1时钟一般为45Mhz：
+//fAPB1时钟一般为45Mhz：168Mhz情况下是42Mhz的APB1
 void SPI2_SetSpeed(u8 SPI_BaudRatePrescaler)
 {
     assert_param(IS_SPI_BAUDRATE_PRESCALER(SPI_BaudRatePrescaler));//判断有效性

@@ -211,11 +211,11 @@ void SX1276LoRaInit( void )
     SX1276ReadBuffer( REG_LR_OPMODE, SX1276Regs + 1, 0x70 - 1 );//读取所有寄存器
     
 //	// Set the device in Sleep Mode
-//    SX1276LoRaSetOpMode( RFLR_OPMODE_SLEEP );
+//    SX1276LoRaSetOpMode( RFLR_OPMODE_SLEEP ); //Confusion疑问，为什么不进入sleep
 	
     SX1276LR->RegLna = RFLR_LNA_GAIN_G1;//LNA增益 最大 默认也是最大 为啥还设置？
 
-    SX1276WriteBuffer( REG_LR_OPMODE, SX1276Regs + 1, 0x70 - 1 );//设置寄存器
+    SX1276WriteBuffer( REG_LR_OPMODE, SX1276Regs + 1, 0x70 - 1 );//设置寄存器。Confusion疑问，为啥全写入
 
     // set the RF settings 
     SX1276LoRaSetRFFrequency( LoRaSettings.RFFrequency );         //set frequency

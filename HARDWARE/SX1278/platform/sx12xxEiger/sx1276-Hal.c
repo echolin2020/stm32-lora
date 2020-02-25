@@ -55,7 +55,7 @@ uint8_t SpiInOut( uint8_t outData )
 
 void SX1276SetReset( uint8_t state )
 {
-    GPIO_InitTypeDef GPIO_InitStructure;
+    //GPIO_InitTypeDef GPIO_InitStructure;
 
     if( state == RADIO_RESET_ON )
     {

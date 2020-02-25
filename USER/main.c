@@ -35,16 +35,21 @@ int main(void)
 	HAL_Init();                     //初始化HAL库   
 	Stm32_Clock_Init(336,8,2,7);   //设置时钟,168Mhz
 	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);//echo added
-	BoardInit();
+	BoardInit();								//echo added
 	TIM3_Init(10-1,8400-1);   			//1ms lora用 林 修改 echo modified
-		uart_init(115200);              //初始化USART	
+	uart_init(115200);              //初始化USART	
 	delay_init(168);                //初始化延时函数 echo modified
 	delay_ms(10);
-	while(1){
-		delay_ms(10);
-		printf("Hello, world!\r\n");
-		}
 	LED_Init();                     //初始化LED 
+	while(1){
+		delay_ms(100);
+		printf("我们的世界hello\r\n");
+		delay_ms(1);
+		printf("1\r\n");
+		delay_ms(1);
+		printf("2\r\n");
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+		}
 	KEY_Init();                     //初始化按键
 	SX1278_Init();    		    		  //初始化SX1278 
 	SX1276Reset();	
