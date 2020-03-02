@@ -80,3 +80,4 @@
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 ..\obj\main.o: ..\HARDWARE\SX1278\radio\radio.h
 ..\obj\main.o: ..\HARDWARE\SX1278\radio\sx1276.h
+..\obj\main.o: ..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h

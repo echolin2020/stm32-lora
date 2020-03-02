@@ -34,11 +34,11 @@
 "..\obj\sx1276-hal.o"
 "..\obj\radio.o"
 "..\obj\sx1276.o"
-"..\obj\sx1276-fsk.o"
-"..\obj\sx1276-fskmisc.o"
 "..\obj\sx1276-lora.o"
 "..\obj\sx1276-loramisc.o"
 "..\obj\sx1278.o"
+"..\obj\sx1276-fsk.o"
+"..\obj\sx1276-fskmisc.o"
 --strict --scatter "..\OBJ\NRF24L01.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

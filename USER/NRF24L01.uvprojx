@@ -645,16 +645,6 @@
               <FilePath>..\HARDWARE\SX1278\radio\sx1276.c</FilePath>
             </File>
             <File>
-              <FileName>sx1276-Fsk.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\SX1278\radio\sx1276-Fsk.c</FilePath>
-            </File>
-            <File>
-              <FileName>sx1276-FskMisc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\SX1278\radio\sx1276-FskMisc.c</FilePath>
-            </File>
-            <File>
               <FileName>sx1276-LoRa.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\SX1278\radio\sx1276-LoRa.c</FilePath>
@@ -668,6 +658,16 @@
               <FileName>SX1278.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\SX1278\bsp\SX1278.c</FilePath>
+            </File>
+            <File>
+              <FileName>sx1276-Fsk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\SX1278\radio\sx1276-Fsk.c</FilePath>
+            </File>
+            <File>
+              <FileName>sx1276-FskMisc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\SX1278\radio\sx1276-FskMisc.c</FilePath>
             </File>
           </Files>
         </Group>

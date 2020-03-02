@@ -34,7 +34,7 @@ void SX1278_SPI_Init(void)
 void SX1278_Init(void)
 {
     GPIO_InitTypeDef GPIO_Initure;
-    __HAL_RCC_GPIOE_CLK_ENABLE();			//开启GPIOG时钟  改成PE2,4
+    __HAL_RCC_GPIOE_CLK_ENABLE();			//开启GPIOG时钟  改成PE2,4  cs pe2  reset pe4
     
     GPIO_Initure.Pin=GPIO_PIN_2|GPIO_PIN_4; //PE2,4 cs / rest
     GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  //推挽输出

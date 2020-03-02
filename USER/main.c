@@ -14,6 +14,7 @@
 #include "stdio.h"
 #include "stm32f4xx_hal_rcc.h"
 #include "sx12xxEiger.h"
+#include "sx1276-LoRaMisc.h"
 /************************************************
 这是第一次在keil里修改文件，尝试用atom自动识别，然后push到github
 ************************************************/
@@ -41,15 +42,11 @@ int main(void)
 	delay_init(168);                //初始化延时函数 echo modified
 	delay_ms(10);
 	LED_Init();                     //初始化LED 
-	while(1){
-		delay_ms(100);
-		printf("我们的世界hello\r\n");
-		delay_ms(1);
-		printf("1\r\n");
-		delay_ms(1);
-		printf("2\r\n");
-		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
-		}
+//	while(1){
+//		delay_ms(100);
+//		printf("h\r\n");
+//		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+//		}
 	KEY_Init();                     //初始化按键
 	SX1278_Init();    		    		  //初始化SX1278 
 	SX1276Reset();	
@@ -85,12 +82,16 @@ int main(void)
 		delay_ms(5);	  
 	}   
  	//LCD_Fill(10,150,240,166,WHITE);//清空上面的显示		  
- 	//POINT_COLOR=BLUE;//设置字体为蓝色	   
+ 	//POINT_COLOR=BLUE;//设置字体为蓝色	  
+		mode = 0; //echo added 为了调试
 	if(mode==0)//RX模式
 	{
 		//LCD_ShowString(30,150,200,16,16,"lora RX_Mode");	
 		//LCD_ShowString(30,170,200,16,16,"Received DATA:");	
+		printf("lora RX_Mode\r\n");
 		Radio->StartRx();   //RFLR_STATE_RX_INIT  
+
+		
 		while(1)
 		{	  		    		    				 
 			while( Radio->Process( ) == RF_RX_DONE)//一旦接收到信息,则显示出来.

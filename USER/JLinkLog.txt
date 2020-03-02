@@ -1,0 +1,31 @@
+
+T2EB4 000:484 SEGGER J-Link V4.96d Log File (0001ms, 0277ms total)
+T2EB4 000:484 DLL Compiled: Jan 29 2015 11:45:37 (0001ms, 0277ms total)
+T2EB4 000:484 Logging started @ 2020-02-26 14:31 (0001ms, 0277ms total)
+T2EB4 000:485 JLINK_SetWarnOutHandler(...) (0000ms, 0277ms total)
+T2EB4 000:485 JLINK_OpenEx(...)
+Firmware: J-Link OB-STM32F072-CortexM compiled Jan  7 2019 14:09:37
+Hardware: V1.00
+Feature(s): GDB, RDI, FlashBP, FlashDL, JFlash, RDDI  returns O.K. (0269ms, 0546ms total)
+T2EB4 000:754 JLINK_SetErrorOutHandler(...) (0000ms, 0546ms total)
+T2EB4 000:754 JLINK_ExecCommand("ProjectFile = "D:\stm32\software\NRF24L01lora\stm32-lora\USER\JLinkSettings.ini"", ...)Device "UNSPECIFIED" selected.  returns 0x00 (0004ms, 0550ms total)
+T2EB4 000:758 JLINK_ExecCommand("Device = STM32F407VG", ...)Device "STM32F407VG" selected.  returns 0x00 (0002ms, 0552ms total)
+T2EB4 000:760 JLINK_ExecCommand("DisableConnectionTimeout", ...)  returns 0x01 (0000ms, 0552ms total)
+T2EB4 000:760 JLINK_GetHardwareVersion()  returns 0x2710 (0000ms, 0552ms total)
+T2EB4 000:760 JLINK_GetDLLVersion()  returns 49604 (0000ms, 0552ms total)
+T2EB4 000:760 JLINK_GetFirmwareString(...) (0000ms, 0552ms total)
+T2EB4 000:760 JLINK_GetDLLVersion()  returns 49604 (0000ms, 0552ms total)
+T2EB4 000:760 JLINK_GetCompileDateTime() (0000ms, 0552ms total)
+T2EB4 000:760 JLINK_GetFirmwareString(...) (0000ms, 0552ms total)
+T2EB4 000:760 JLINK_GetHardwareVersion()  returns 0x2710 (0000ms, 0552ms total)
+T2EB4 000:760 JLINK_TIF_Select(JLINKARM_TIF_JTAG)
+  ***** Error: Debugger tries to select target interface JTAG.
+This interface is not supported by the connected emulator.
+Selection will be ignored by the DLL.  returns 0x01 (0000ms, 0552ms total)
+T2EB4 000:761 JLINK_GetHardwareVersion()  returns 0x2710 (0000ms, 0552ms total)
+T2EB4 000:761 JLINK_GetDLLVersion()  returns 49604 (0000ms, 0552ms total)
+T2EB4 000:761 JLINK_GetFirmwareString(...) (0000ms, 0552ms total)
+T2EB4 000:764 JLINK_GetFirmwareString(...) (0000ms, 0552ms total)
+T2EB4 002:831 JLINK_Close() (0000ms, 0552ms total)
+T2EB4 002:831  (0000ms, 0552ms total)
+T2EB4 002:831 Closed (0000ms, 0552ms total)

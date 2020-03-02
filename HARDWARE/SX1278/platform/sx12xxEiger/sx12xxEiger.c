@@ -29,7 +29,7 @@ volatile uint32_t TickCounter = 0;
 
 void BoardInit( void )
 {
-    /* Setup SysTick Timer for 1 us interrupts ( not too often to save power ) */
+    /* Setup SysTick Timer for 1 ms interrupts ( not too often to save power ) */
     if( SysTick_Config( SystemCoreClock / 1000 ) )    //1ms
     { 
         /* Capture error */ 
