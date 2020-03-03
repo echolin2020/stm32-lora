@@ -6,6 +6,7 @@
 //#include "lcd.h"
 //#include "sdram.h"
 #include "SX1278.h"
+#include "SX1276.h"
 #include "timer.h"
 //SX1278
 #include "platform.h"
@@ -27,8 +28,10 @@ tRadioDriver *Radio = NULL;
 const uint8_t MY_TEST_Msg[] = "SX1278_TEST";
 uint32_t aa,bb,cc,dd;
 
+
 int main(void)
 {
+	double myrssi;
 	u8 key,mode;
 	u16 t=0,i=0;		
 	uint8_t txN=0;	
@@ -99,6 +102,9 @@ int main(void)
 				Radio->GetRxPacket( Buffer, ( uint16_t* )&BufferSize );			
 				if( strlen(Buffer) != 0 )
 				{
+					myrssi = SX1276ReadRssi();
+					printf("Rssi = %12.6f\r\n", myrssi);
+					
 					Buffer[strlen(Buffer)]=0;//¼ÓÈë×Ö·û´®½áÊø·û
 					printf("LoRa RX: %s\r\n",Buffer);		
 					//LCD_ShowString(0,190,lcddev.width-1,32,16,Buffer);   					

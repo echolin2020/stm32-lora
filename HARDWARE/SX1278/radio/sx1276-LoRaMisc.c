@@ -316,6 +316,18 @@ uint8_t SX1276LoRaGetPayloadLength( void )
     return LoRaSettings.PayloadLength;
 }
 
+long SX1276GetFeiValue()
+{
+  uint8_t error28,error29,error2A;
+  SX1276Read(0x28, &error28);
+	printf("%d\r\n",error28);
+  SX1276Read(0x29, &error29);
+	printf("%d\r\n",error29);
+  SX1276Read(0x2A, &error2A);
+	printf("%d\r\n",error2A);
+  return ((error28<<16) + (error29<<8) + error2A);
+}
+
 void SX1276LoRaSetPa20dBm( bool enale )
 {
     SX1276Read( REG_LR_PADAC, &SX1276LR->RegPaDac );

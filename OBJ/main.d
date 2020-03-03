@@ -74,10 +74,10 @@
 ..\obj\main.o: ..\HARDWARE\LED\led.h
 ..\obj\main.o: ..\HARDWARE\KEY\key.h
 ..\obj\main.o: ..\HARDWARE\SX1278\bsp\SX1278.h
+..\obj\main.o: ..\HARDWARE\SX1278\radio\SX1276.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\HARDWARE\SX1278\platform\platform.h
 ..\obj\main.o: ..\HARDWARE\SX1278\platform\sx12xxEiger/sx12xxEiger.h
-..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 ..\obj\main.o: ..\HARDWARE\SX1278\radio\radio.h
-..\obj\main.o: ..\HARDWARE\SX1278\radio\sx1276.h
 ..\obj\main.o: ..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h

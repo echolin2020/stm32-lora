@@ -32,7 +32,9 @@
 #include "sx1276-LoRaMisc.h"
 #include "sx1276-LoRa.h"
 
-#define LoRa_FREQENCY   435000000
+//#define LoRa_FREQENCY   435000000
+#define LoRa_FREQENCY   434000000  //echo added
+//#define LoRa_FREQENCY   434549588  //echo added
 
 /*!
  * Constant values need to compute the RSSI value
@@ -152,9 +154,9 @@ const int32_t HoppingFrequencies[] =
 // Default settings
 tLoRaSettings LoRaSettings =
 {
-    LoRa_FREQENCY ,     //435000000,        // RFFrequency
+    LoRa_FREQENCY ,     //434000000,        // RFFrequency
     20,               // Power
-    8,                // SignalBw [0: 7.8kHz, 1: 10.4 kHz, 2: 15.6 kHz, 3: 20.8 kHz, 4: 31.2 kHz,
+    9,                // SignalBw [0: 7.8kHz, 1: 10.4 kHz, 2: 15.6 kHz, 3: 20.8 kHz, 4: 31.2 kHz,
                       // 5: 41.6 kHz, 6: 62.5 kHz, 7: 125 kHz, 8: 250 kHz, 9: 500 kHz, other: Reserved]
     7,                // SpreadingFactor [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096  chips]
     2,                // ErrorCoding [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8]
@@ -162,7 +164,7 @@ tLoRaSettings LoRaSettings =
     true,            // ImplicitHeaderOn [0: OFF, 1: ON]
     0,                // RxSingleOn [0: Continuous, 1 Single]
     0,                // FreqHopOn [0: OFF, 1: ON]              //跳频技术
-    4,                // HopPeriod Hops every frequency hopping period symbols
+    8,                // HopPeriod Hops every frequency hopping period symbols
     100,              // TxPacketTimeout
     100,              // RxPacketTimeout
     128,              // PayloadLength (used for implicit header mode)
@@ -204,6 +206,8 @@ static uint16_t TxPacketSize = 0;
 void SX1276LoRaInit( void )
 {
     RFLRState = RFLR_STATE_IDLE;
+	// Set the device in Standby Mode
+    SX1276LoRaSetOpMode( RFLR_OPMODE_STANDBY );//先进入standby
 
     SX1276LoRaSetDefaults( );//读版本信息
     
@@ -229,6 +233,7 @@ void SX1276LoRaInit( void )
     SX1276LoRaSetPayloadLength( LoRaSettings.PayloadLength );
     SX1276LoRaSetLowDatarateOptimize( true );
 		SX1276LoRaSetPreambleLength(0xffff);//林添加  added
+		//SX1276Write( 0x27, 0xFF );//林添加  added
 //#if( ( MODULE_SX1276RF1IAS == 1 ) || ( MODULE_SX1276RF1KAS == 1 ) )
 //    if( LoRaSettings.RFFrequency > 860000000 )
 //    {
@@ -408,6 +413,7 @@ void SX1276LoRaSetRFState( uint8_t state )
  */
 uint32_t SX1276LoRaProcess( void )
 {
+		long errorFre;
     uint32_t result = RF_BUSY;
     uint8_t regValue=0;
     switch( RFLRState )
@@ -437,7 +443,8 @@ uint32_t SX1276LoRaProcess( void )
         }
         else
         {
-            SX1276LR->RegHopPeriod = 255;
+            //SX1276LR->RegHopPeriod = 255;
+					SX1276LR->RegHopPeriod = 0;//echo modified
         }
         
         SX1276Write( REG_LR_HOPPERIOD, SX1276LR->RegHopPeriod );
@@ -565,6 +572,7 @@ uint32_t SX1276LoRaProcess( void )
                 RxPacketRssiValue = RssiOffsetHF[LoRaSettings.SignalBw] + ( double )SX1276LR->RegPktRssiValue;
             }
         }
+				printf("Rssi = %12.6f\r\n", RxPacketRssiValue);
 
         if( LoRaSettings.RxSingleOn == true ) // Rx single mode
         {
@@ -612,6 +620,8 @@ uint32_t SX1276LoRaProcess( void )
         {
             RFLRState = RFLR_STATE_RX_RUNNING;
         }
+				errorFre = SX1276GetFeiValue();
+				printf("Frequency Error = %ld\r\n", errorFre);
         result = RF_RX_DONE;
         break;
     case RFLR_STATE_RX_TIMEOUT:
