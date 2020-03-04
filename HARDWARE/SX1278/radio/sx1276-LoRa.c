@@ -160,7 +160,7 @@ tLoRaSettings LoRaSettings =
                       // 5: 41.6 kHz, 6: 62.5 kHz, 7: 125 kHz, 8: 250 kHz, 9: 500 kHz, other: Reserved]
     7,                // SpreadingFactor [6: 64, 7: 128, 8: 256, 9: 512, 10: 1024, 11: 2048, 12: 4096  chips]
     2,                // ErrorCoding [1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8]
-    false,             // CrcOn [0: OFF, 1: ON]
+    1,             // CrcOn [0: OFF, 1: ON]
     true,            // ImplicitHeaderOn [0: OFF, 1: ON]
     0,                // RxSingleOn [0: Continuous, 1 Single]
     0,                // FreqHopOn [0: OFF, 1: ON]              //跳频技术
@@ -232,7 +232,7 @@ void SX1276LoRaInit( void )
     SX1276LoRaSetSymbTimeout( 0x3FF );
     SX1276LoRaSetPayloadLength( LoRaSettings.PayloadLength );
     SX1276LoRaSetLowDatarateOptimize( true );
-		SX1276LoRaSetPreambleLength(0xffff);//林添加  added
+		SX1276LoRaSetPreambleLength(0x00ff);//林添加  added
 		//SX1276Write( 0x27, 0xFF );//林添加  added
 //#if( ( MODULE_SX1276RF1IAS == 1 ) || ( MODULE_SX1276RF1KAS == 1 ) )
 //    if( LoRaSettings.RFFrequency > 860000000 )
