@@ -81,3 +81,4 @@
 ..\obj\main.o: ..\HARDWARE\SX1278\platform\sx12xxEiger/sx12xxEiger.h
 ..\obj\main.o: ..\HARDWARE\SX1278\radio\radio.h
 ..\obj\main.o: ..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h
+..\obj\main.o: ..\HARDWARE\SX1278\radio\sx1276-LoRa.h

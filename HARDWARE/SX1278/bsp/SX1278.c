@@ -35,12 +35,19 @@ void SX1278_Init(void)
 {
     GPIO_InitTypeDef GPIO_Initure;
     __HAL_RCC_GPIOE_CLK_ENABLE();			//开启GPIOG时钟  改成PE2,4  cs pe2  reset pe4
+		__HAL_RCC_GPIOC_CLK_ENABLE();	
     
     GPIO_Initure.Pin=GPIO_PIN_2|GPIO_PIN_4; //PE2,4 cs / rest
     GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  //推挽输出
     GPIO_Initure.Pull=GPIO_PULLUP;          //上拉
     GPIO_Initure.Speed=GPIO_SPEED_HIGH;     //高速
     HAL_GPIO_Init(GPIOE,&GPIO_Initure);     //初始化
+	
+		GPIO_Initure.Pin=GPIO_PIN_1; //PC1 external interupt CAD detected
+    GPIO_Initure.Mode=GPIO_MODE_IT_RISING;  //
+    GPIO_Initure.Pull=GPIO_NOPULL;          //
+    GPIO_Initure.Speed=GPIO_SPEED_MEDIUM;     //
+    HAL_GPIO_Init(GPIOC,&GPIO_Initure);     //初始化
     
     SPI2_Init();    		                //初始化SPI2  
     SX1278_SPI_Init();                //针对NRF的特点修改SPI的设置

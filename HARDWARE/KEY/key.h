@@ -26,6 +26,7 @@
 #define KEY1        HAL_GPIO_ReadPin(GPIOH,GPIO_PIN_2)  //KEY1按键PH2
 #define KEY2        HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13) //KEY2按键PC13
 #define WK_UP       HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_0)  //WKUP按键PA0
+#define CADDetect       HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_1)  //WKUP按键PA0
 
 #define KEY0_PRES 	1
 #define KEY1_PRES		2

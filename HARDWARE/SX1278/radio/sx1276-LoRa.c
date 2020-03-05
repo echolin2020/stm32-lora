@@ -32,6 +32,9 @@
 #include "sx1276-LoRaMisc.h"
 #include "sx1276-LoRa.h"
 
+#include "led.h"
+
+
 //#define LoRa_FREQENCY   435000000
 #define LoRa_FREQENCY   434000000  //echo added
 //#define LoRa_FREQENCY   434549588  //echo added
@@ -193,6 +196,7 @@ static int8_t RxPacketSnrEstimate;
 static double RxPacketRssiValue;
 static uint8_t RxGain = 1;
 static uint32_t RxTimeoutTimer = 0;
+extern __IO bool isCAD;
 /*!
  * PacketTimeout Stores the Rx window time value for packet reception
  */
@@ -232,7 +236,7 @@ void SX1276LoRaInit( void )
     SX1276LoRaSetSymbTimeout( 0x3FF );
     SX1276LoRaSetPayloadLength( LoRaSettings.PayloadLength );
     SX1276LoRaSetLowDatarateOptimize( true );
-		SX1276LoRaSetPreambleLength(0x00ff);//林添加  added
+		SX1276LoRaSetPreambleLength(0x0fff);//林添加  added
 		//SX1276Write( 0x27, 0xFF );//林添加  added
 //#if( ( MODULE_SX1276RF1IAS == 1 ) || ( MODULE_SX1276RF1KAS == 1 ) )
 //    if( LoRaSettings.RFFrequency > 860000000 )
@@ -371,6 +375,11 @@ void SX1276LoRaStartRx( void )
     SX1276LoRaSetRFState( RFLR_STATE_RX_INIT );
 }
 
+void SX1276LoRaStartCAD( void )
+{
+    SX1276LoRaSetRFState( RFLR_STATE_CAD_INIT );
+}
+
 void SX1276LoRaGetRxPacket( void *buffer, uint16_t *size )
 {
     *size = RxPacketSize;
@@ -402,6 +411,7 @@ void SX1276LoRaSetRFState( uint8_t state )
 {
     RFLRState = state;
 }
+
 
 /*!
  * \brief Process the LoRa modem Rx and Tx state machines depending on the
@@ -740,13 +750,24 @@ uint32_t SX1276LoRaProcess( void )
             
         SX1276LoRaSetOpMode( RFLR_OPMODE_CAD );
         RFLRState = RFLR_STATE_CAD_RUNNING;
+				SX1276Write( REG_LR_IRQFLAGS, 0xFF );
+//				HAL_NVIC_DisableIRQ(TIM3_IRQn);
+//					__WFI();
+//				HAL_NVIC_EnableIRQ(TIM3_IRQn);
+				
+				
+				LED3 = !LED3;
         break;
     case RFLR_STATE_CAD_RUNNING:
-        if( DIO3 == 1 ) //CAD Done interrupt
+			SX1276Read(0x12,&regValue);
+				if(regValue & (1<<2))
+        //if( DIO3 == 1 ) //CAD Done interrupt
+				//if( isCAD == 1 ) //CAD Done interrupt	
         { 
             // Clear Irq
             SX1276Write( REG_LR_IRQFLAGS, RFLR_IRQFLAGS_CADDONE  );
-            if( DIO4 == 1 ) // CAD Detected interrupt
+						if(regValue & (1<<0))
+            //if( DIO4 == 1 ) // CAD Detected interrupt
             {
                 // Clear Irq
                 SX1276Write( REG_LR_IRQFLAGS, RFLR_IRQFLAGS_CADDETECTED  );
@@ -757,7 +778,7 @@ uint32_t SX1276LoRaProcess( void )
             else
             {    
                 // The device goes in Standby Mode automatically    
-                RFLRState = RFLR_STATE_IDLE;
+                RFLRState = RFLR_STATE_CAD_INIT;
                 result = RF_CHANNEL_EMPTY;
             }
         }   

@@ -914,7 +914,7 @@ typedef enum
 /*!
  * RegNodeAdrs
  */
-#define RF_NODEADDRESS_ADDRESS                      0x00
+#define RF_NODEADDRESS_ADDRESS                      0xA0
 
 /*!
  * RegBroadcastAdrs

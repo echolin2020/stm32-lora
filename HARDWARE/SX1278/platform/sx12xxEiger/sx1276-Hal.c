@@ -139,12 +139,12 @@ inline uint8_t SX1276ReadDio2( void )
 
 inline uint8_t SX1276ReadDio3( void )
 {
-    return 0;
+    return HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1);
 }
 
 inline uint8_t SX1276ReadDio4( void )
 {
-    return 0;
+		return HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_3);
 }
 
 inline uint8_t SX1276ReadDio5( void )

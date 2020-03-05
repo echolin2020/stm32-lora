@@ -15,7 +15,9 @@
 ////////////////////////////////////////////////////////////////////////////////// 	
 
 #define LED0 PDout(12)   //LED0
-#define LED1 PBout(13)   //LED1
+#define LED1 PDout(13)   //LED1
+#define LED2 PDout(14)   //LED2
+#define LED3 PDout(15)   //LED3
 
 void LED_Init(void);
 #endif

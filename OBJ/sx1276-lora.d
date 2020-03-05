@@ -78,3 +78,4 @@
 ..\obj\sx1276-lora.o: ..\HARDWARE\SX1278\radio\sx1276.h
 ..\obj\sx1276-lora.o: ..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h
 ..\obj\sx1276-lora.o: ..\HARDWARE\SX1278\radio\sx1276-LoRa.h
+..\obj\sx1276-lora.o: ..\HARDWARE\LED\led.h

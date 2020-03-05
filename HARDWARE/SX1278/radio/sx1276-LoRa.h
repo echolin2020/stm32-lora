@@ -857,6 +857,7 @@ int8_t SX1276LoRaGetPacketSnr( void );
  */
 double SX1276LoRaGetPacketRssi( void );
 
+void SX1276LoRaStartCAD( void );
 /*!
  * \brief Sets the radio in Rx mode. Waiting for a packet
  */
