@@ -27,17 +27,17 @@ Project File Date:  02/26/2020
 <h2>Output:</h2>
 Build target 'NRF24L01'
 compiling main.c...
-..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h(301): warning:  #1295-D: Deprecated declaration SX1276GetFeiValue - give arg types
-  long SX1276GetFeiValue();
-main.c(101): warning:  #223-D: function "SX1276Write" declared implicitly
-                SX1276Write( REG_LR_IRQFLAGS, 0xFF );
-main.c(110): warning:  #223-D: function "strlen" declared implicitly
+main.c(88): warning:  #223-D: function "strlen" declared implicitly
                                 if( strlen(Buffer) != 0 )
-main.c(142): warning:  #223-D: function "strlen" declared implicitly
-                                Radio->SetTxPacket( sendBuf, strlen(sendBuf) );   //RFLR_STATE_TX_INIT
+main.c(41): warning:  #177-D: variable "key" was declared but never referenced
+        u8 key,mode;
+main.c(42): warning:  #177-D: variable "t" was declared but never referenced
+        u16 t=0,i=0;    
+main.c(44): warning:  #177-D: variable "txN" was declared but never referenced
+        uint8_t txN=0;  
 main.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=20822 RO-data=1062 RW-data=188 ZI-data=3068  
+Program Size: Code=20838 RO-data=1214 RW-data=188 ZI-data=3068  
 FromELF: creating hex file...
 "..\OBJ\NRF24L01.axf" - 0 Error(s), 4 Warning(s).
 

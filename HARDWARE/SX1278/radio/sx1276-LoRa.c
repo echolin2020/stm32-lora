@@ -431,6 +431,7 @@ uint32_t SX1276LoRaProcess( void )
     case RFLR_STATE_IDLE:
         break;
     case RFLR_STATE_RX_INIT:
+				//printf("RFLR_STATE_RX_INIT\r\n");
         
         SX1276LoRaSetOpMode( RFLR_OPMODE_STANDBY );//待机
 
@@ -486,7 +487,7 @@ uint32_t SX1276LoRaProcess( void )
         RFLRState = RFLR_STATE_RX_RUNNING;
         break;
     case RFLR_STATE_RX_RUNNING:
-        
+        //printf("RFLR_STATE_RX_RUNNING\r\n");
 				SX1276Read(0x12,&regValue);
         //if( DIO0 == 1 ) // RxDone
 				if(regValue & (1<<6)) //不用DIO 就读取寄存器标志  
@@ -525,6 +526,7 @@ uint32_t SX1276LoRaProcess( void )
         }
         break;
     case RFLR_STATE_RX_DONE:
+				//printf("RFLR_STATE_RX_DONE\r\n");
         SX1276Read( REG_LR_IRQFLAGS, &SX1276LR->RegIrqFlags );
         if( ( SX1276LR->RegIrqFlags & RFLR_IRQFLAGS_PAYLOADCRCERROR ) == RFLR_IRQFLAGS_PAYLOADCRCERROR )     //CRC校验
         {
@@ -635,11 +637,12 @@ uint32_t SX1276LoRaProcess( void )
         result = RF_RX_DONE;
         break;
     case RFLR_STATE_RX_TIMEOUT:
+				//printf("RFLR_STATE_RX_TIMEOUT\r\n");
         RFLRState = RFLR_STATE_RX_INIT;
         result = RF_RX_TIMEOUT;
         break;
     case RFLR_STATE_TX_INIT:
-
+				//printf("RFLR_STATE_TX_INIT\r\n");
         SX1276LoRaSetOpMode( RFLR_OPMODE_STANDBY );//待机
 
         if( LoRaSettings.FreqHopOn == true )//跳频？
@@ -697,6 +700,7 @@ uint32_t SX1276LoRaProcess( void )
         RFLRState = RFLR_STATE_TX_RUNNING;
         break;
     case RFLR_STATE_TX_RUNNING://发送状态
+			//printf("RFLR_STATE_TX_RUNNING\r\n");
 			{
 				SX1276Read(0x12,&regValue);
 
@@ -710,7 +714,7 @@ uint32_t SX1276LoRaProcess( void )
 				}
 			
 				//if( DIO2 == 1 ) // FHSS Changed Channel
-				if(regValue & (1<<3))
+				if(regValue & (1<<1))
 				{
 						if( LoRaSettings.FreqHopOn == true )
 						{
@@ -723,13 +727,15 @@ uint32_t SX1276LoRaProcess( void )
 			}
         break;
     case RFLR_STATE_TX_DONE://发送完成 又回到空闲状态
+				//printf("RFLR_STATE_TX_DONE\r\n");
         // optimize the power consumption by switching off the transmitter as soon as the packet has been sent
         SX1276LoRaSetOpMode( RFLR_OPMODE_STANDBY );
 
         RFLRState = RFLR_STATE_IDLE;
         result = RF_TX_DONE;
         break;
-    case RFLR_STATE_CAD_INIT:    
+    case RFLR_STATE_CAD_INIT:  
+				//printf("RFLR_STATE_CAD_INIT\r\n");
         SX1276LoRaSetOpMode( RFLR_OPMODE_STANDBY );
     
         SX1276LR->RegIrqFlagsMask = RFLR_IRQFLAGS_RXTIMEOUT |
@@ -759,29 +765,51 @@ uint32_t SX1276LoRaProcess( void )
 				LED3 = !LED3;
         break;
     case RFLR_STATE_CAD_RUNNING:
+			//printf("RFLR_STATE_CAD_RUNNING\r\n");
 			SX1276Read(0x12,&regValue);
-				if(regValue & (1<<2))
-        //if( DIO3 == 1 ) //CAD Done interrupt
-				//if( isCAD == 1 ) //CAD Done interrupt	
-        { 
-            // Clear Irq
-            SX1276Write( REG_LR_IRQFLAGS, RFLR_IRQFLAGS_CADDONE  );
-						if(regValue & (1<<0))
-            //if( DIO4 == 1 ) // CAD Detected interrupt
-            {
-                // Clear Irq
-                SX1276Write( REG_LR_IRQFLAGS, RFLR_IRQFLAGS_CADDETECTED  );
-                // CAD detected, we have a LoRa preamble
-                RFLRState = RFLR_STATE_RX_INIT;
-                result = RF_CHANNEL_ACTIVITY_DETECTED;
-            } 
-            else
+				if(regValue & (1<<2)){
+					RFLRState = RFLR_STATE_CAD_RUNNING;
+					SX1276Write( REG_LR_IRQFLAGS, RFLR_IRQFLAGS_CADDONE  );
+					if(isCAD == 1){
+						isCAD = 0;
+						SX1276Write( REG_LR_IRQFLAGS, RFLR_IRQFLAGS_CADDETECTED  );
+						// CAD detected, we have a LoRa preamble
+            RFLRState = RFLR_STATE_RX_INIT;
+            result = RF_CHANNEL_ACTIVITY_DETECTED;
+					}
+					else
             {    
                 // The device goes in Standby Mode automatically    
+								//SX1276LoRaSetOpMode( RFLR_OPMODE_CAD );
+							//SX1276Write( REG_LR_IRQFLAGS, 0xFF );
                 RFLRState = RFLR_STATE_CAD_INIT;
                 result = RF_CHANNEL_EMPTY;
             }
-        }   
+				}
+			
+//			SX1276Read(0x12,&regValue);
+//				if(regValue & (1<<2))
+//        //if( DIO3 == 1 ) //CAD Done interrupt
+//				//if( isCAD == 1 ) //CAD Done interrupt	
+//        { 
+//            // Clear Irq
+//            SX1276Write( REG_LR_IRQFLAGS, RFLR_IRQFLAGS_CADDONE  );
+//						if(regValue & (1<<0))
+//            //if( DIO4 == 1 ) // CAD Detected interrupt
+//            {
+//                // Clear Irq
+//                SX1276Write( REG_LR_IRQFLAGS, RFLR_IRQFLAGS_CADDETECTED  );
+//                // CAD detected, we have a LoRa preamble
+//                RFLRState = RFLR_STATE_RX_INIT;
+//                result = RF_CHANNEL_ACTIVITY_DETECTED;
+//            } 
+//            else
+//            {    
+//                // The device goes in Standby Mode automatically    
+//                RFLRState = RFLR_STATE_CAD_INIT;
+//                result = RF_CHANNEL_EMPTY;
+//            }
+//        }   
         break;
     
     default:

@@ -298,7 +298,7 @@ uint16_t SX1276LoRaGetPreambleLength( void );
  * \param [IN] value preamble length
  */
 
-long SX1276GetFeiValue();
+long SX1276GetFeiValue(void);
 	
 
 void SX1276LoRaSetPreambleLength( uint16_t value );

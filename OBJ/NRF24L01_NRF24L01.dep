@@ -1,5 +1,5 @@
 Dependencies for Project 'NRF24L01', Target 'NRF24L01': (DO NOT MODIFY !)
-F (.\main.c)(0x5E60E0B5)(-c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I..\CORE -I..\OBJ -I..\USER -I..\HALLIB\STM32F4xx_HAL_Driver\Inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\LED -I..\HARDWARE\KEY -I..\HARDWARE\LCD -I..\HARDWARE\SDRAM -I..\HARDWARE\KEY -I..\HARDWARE\IIC -I..\HARDWARE\SPI -I..\HARDWARE\W25QXX -I..\HARDWARE\SX1278\platform -I..\HARDWARE\SX1278\platform\sx12xxEiger -I..\HARDWARE\SX1278\radio -I..\HARDWARE\TIMER -I..\HARDWARE\SX1278\bsp-I D:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DUSE_HAL_DRIVER -DSTM32F407xx-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x5E621084)(-c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I..\CORE -I..\OBJ -I..\USER -I..\HALLIB\STM32F4xx_HAL_Driver\Inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\LED -I..\HARDWARE\KEY -I..\HARDWARE\LCD -I..\HARDWARE\SDRAM -I..\HARDWARE\KEY -I..\HARDWARE\IIC -I..\HARDWARE\SPI -I..\HARDWARE\W25QXX -I..\HARDWARE\SX1278\platform -I..\HARDWARE\SX1278\platform\sx12xxEiger -I..\HARDWARE\SX1278\radio -I..\HARDWARE\TIMER -I..\HARDWARE\SX1278\bsp-I D:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DUSE_HAL_DRIVER -DSTM32F407xx-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (..\SYSTEM\sys\sys.h)(0x5745175C)
 I (..\USER\stm32f4xx.h)(0x5710F99F)
 I (..\USER\stm32f407xx.h)(0x5D8194E8)
@@ -80,8 +80,9 @@ I (..\HARDWARE\TIMER\timer.h)(0x5710FA19)
 I (..\HARDWARE\SX1278\platform\platform.h)(0x5D04AF00)
 I (..\HARDWARE\SX1278\platform\sx12xxEiger/sx12xxEiger.h)(0x5D04CFF3)
 I (..\HARDWARE\SX1278\radio\radio.h)(0x5D04AF4B)
-I (..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h)(0x5E5E2B98)
+I (..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h)(0x5E610966)
 I (..\HARDWARE\SX1278\radio\sx1276-LoRa.h)(0x5E60A1AF)
+I (..\HARDWARE\SX1278\radio\sx1276-Hal.h)(0x5D04AF3E)
 F (.\stm32f4xx_it.c)(0x5E60A725)(-c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I..\CORE -I..\OBJ -I..\USER -I..\HALLIB\STM32F4xx_HAL_Driver\Inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\LED -I..\HARDWARE\KEY -I..\HARDWARE\LCD -I..\HARDWARE\SDRAM -I..\HARDWARE\KEY -I..\HARDWARE\IIC -I..\HARDWARE\SPI -I..\HARDWARE\W25QXX -I..\HARDWARE\SX1278\platform -I..\HARDWARE\SX1278\platform\sx12xxEiger -I..\HARDWARE\SX1278\radio -I..\HARDWARE\TIMER -I..\HARDWARE\SX1278\bsp-I D:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DUSE_HAL_DRIVER -DSTM32F407xx-o ..\obj\stm32f4xx_it.o --omf_browse ..\obj\stm32f4xx_it.crf --depend ..\obj\stm32f4xx_it.d)
 I (main.h)(0x5710F99F)
 I (..\HALLIB\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x5710F99B)
@@ -2419,7 +2420,7 @@ I (..\HARDWARE\SX1278\radio\sx1276-Hal.h)(0x5D04AF3E)
 I (..\HARDWARE\SX1278\radio\sx1276-Fsk.h)(0x5E5FA8EB)
 I (..\HARDWARE\SX1278\radio\sx1276-LoRa.h)(0x5E60A1AF)
 I (..\SYSTEM\delay\delay.h)(0x5710F99F)
-F (..\HARDWARE\SX1278\radio\sx1276-LoRa.c)(0x5E60DFE2)(-c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I..\CORE -I..\OBJ -I..\USER -I..\HALLIB\STM32F4xx_HAL_Driver\Inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\LED -I..\HARDWARE\KEY -I..\HARDWARE\LCD -I..\HARDWARE\SDRAM -I..\HARDWARE\KEY -I..\HARDWARE\IIC -I..\HARDWARE\SPI -I..\HARDWARE\W25QXX -I..\HARDWARE\SX1278\platform -I..\HARDWARE\SX1278\platform\sx12xxEiger -I..\HARDWARE\SX1278\radio -I..\HARDWARE\TIMER -I..\HARDWARE\SX1278\bsp-I D:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DUSE_HAL_DRIVER -DSTM32F407xx-o ..\obj\sx1276-lora.o --omf_browse ..\obj\sx1276-lora.crf --depend ..\obj\sx1276-lora.d)
+F (..\HARDWARE\SX1278\radio\sx1276-LoRa.c)(0x5E61C236)(-c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I..\CORE -I..\OBJ -I..\USER -I..\HALLIB\STM32F4xx_HAL_Driver\Inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\LED -I..\HARDWARE\KEY -I..\HARDWARE\LCD -I..\HARDWARE\SDRAM -I..\HARDWARE\KEY -I..\HARDWARE\IIC -I..\HARDWARE\SPI -I..\HARDWARE\W25QXX -I..\HARDWARE\SX1278\platform -I..\HARDWARE\SX1278\platform\sx12xxEiger -I..\HARDWARE\SX1278\radio -I..\HARDWARE\TIMER -I..\HARDWARE\SX1278\bsp-I D:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DUSE_HAL_DRIVER -DSTM32F407xx-o ..\obj\sx1276-lora.o --omf_browse ..\obj\sx1276-lora.crf --depend ..\obj\sx1276-lora.d)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (..\HARDWARE\SX1278\platform\platform.h)(0x5D04AF00)
 I (..\HARDWARE\SX1278\platform\sx12xxEiger/sx12xxEiger.h)(0x5D04CFF3)
@@ -2496,7 +2497,7 @@ I (..\SYSTEM\sys\sys.h)(0x5745175C)
 I (..\HARDWARE\SX1278\radio\radio.h)(0x5D04AF4B)
 I (..\HARDWARE\SX1278\radio\sx1276-Hal.h)(0x5D04AF3E)
 I (..\HARDWARE\SX1278\radio\sx1276.h)(0x5565328C)
-I (..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h)(0x5E5E2B98)
+I (..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h)(0x5E610966)
 I (..\HARDWARE\SX1278\radio\sx1276-LoRa.h)(0x5E60A1AF)
 I (..\HARDWARE\LED\led.h)(0x5E60B4B9)
 F (..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.c)(0x5E5E303F)(-c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I..\CORE -I..\OBJ -I..\USER -I..\HALLIB\STM32F4xx_HAL_Driver\Inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\LED -I..\HARDWARE\KEY -I..\HARDWARE\LCD -I..\HARDWARE\SDRAM -I..\HARDWARE\KEY -I..\HARDWARE\IIC -I..\HARDWARE\SPI -I..\HARDWARE\W25QXX -I..\HARDWARE\SX1278\platform -I..\HARDWARE\SX1278\platform\sx12xxEiger -I..\HARDWARE\SX1278\radio -I..\HARDWARE\TIMER -I..\HARDWARE\SX1278\bsp-I D:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DUSE_HAL_DRIVER -DSTM32F407xx-o ..\obj\sx1276-loramisc.o --omf_browse ..\obj\sx1276-loramisc.crf --depend ..\obj\sx1276-loramisc.d)
@@ -2575,7 +2576,7 @@ I (..\SYSTEM\sys\sys.h)(0x5745175C)
 I (..\HARDWARE\SX1278\radio\sx1276-Hal.h)(0x5D04AF3E)
 I (..\HARDWARE\SX1278\radio\sx1276.h)(0x5565328C)
 I (..\HARDWARE\SX1278\radio\sx1276-LoRa.h)(0x5E60A1AF)
-I (..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h)(0x5E5E2B98)
+I (..\HARDWARE\SX1278\radio\sx1276-LoRaMisc.h)(0x5E610966)
 F (..\HARDWARE\SX1278\bsp\SX1278.c)(0x5E60A345)(-c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I..\CORE -I..\OBJ -I..\USER -I..\HALLIB\STM32F4xx_HAL_Driver\Inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE\LED -I..\HARDWARE\KEY -I..\HARDWARE\LCD -I..\HARDWARE\SDRAM -I..\HARDWARE\KEY -I..\HARDWARE\IIC -I..\HARDWARE\SPI -I..\HARDWARE\W25QXX -I..\HARDWARE\SX1278\platform -I..\HARDWARE\SX1278\platform\sx12xxEiger -I..\HARDWARE\SX1278\radio -I..\HARDWARE\TIMER -I..\HARDWARE\SX1278\bsp-I D:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DUSE_HAL_DRIVER -DSTM32F407xx-o ..\obj\sx1278.o --omf_browse ..\obj\sx1278.crf --depend ..\obj\sx1278.d)
 I (..\HARDWARE\SX1278\bsp\SX1278.h)(0x5E53310D)
 I (..\SYSTEM\sys\sys.h)(0x5745175C)
