@@ -26,19 +26,22 @@
 
 static uint16_t BufferSize = BUFFER_SIZE;			// RF buffer size
 static uint8_t  Buffer[BUFFER_SIZE];				// RF buffer
+const uint8_t RFBuffer2[]="echo hello world hello lora hello world hello lorahello world hello lora hello world hello lorahello world hello";
 uint8_t  BufferTx[BUFFER_SIZE];				// RF buffer
+extern uint8_t RFBuffer;
 tRadioDriver *Radio = NULL;
 const uint8_t MY_TEST_Msg[] = "hello world hello lora hello world hello lorahello world hello lora hello world hello lorahello world hello lora";
 uint32_t aa,bb,cc,dd;
 void EXTI_Init(void);
 __IO bool isCAD;
-extern  uint8_t RFLRState;
+extern  __IO uint8_t RFLRState;
+__IO uint8_t mode;
 
 int main(void)
 {
-	
+	uint8_t RegValue=0;
 	double myrssi;
-	u8 key,mode;
+	u8 key;
 	u16 t=0,i=0;	
 
 	uint8_t txN=0;	
@@ -72,66 +75,26 @@ int main(void)
 	printf("lora OK\r\n");
 	Radio = RadioDriverInit();
 	Radio->Init();	
-   
-
 	mode = 0; //echo added 为了调试
-	while(1){
-	if(mode==0)//RX模式
-	{	
-		//SX1276LoRaStartCAD();  //RFLRState = RFLR_STATE_CAD_INIT;
-		Radio->StartRx( );
-		while(1)
-		{	  		    		    				 
-			while( Radio->Process( ) == RF_RX_DONE)//一旦接收到信息,则显示出来.
-			{			
-				Radio->GetRxPacket( Buffer, ( uint16_t* )&BufferSize );			
-				if( strlen(Buffer) != 0 )
-				{
-					myrssi = SX1276ReadRssi();
-					printf("Rssi = %12.6f\r\n", myrssi);
-					
-					Buffer[strlen(Buffer)]=0;//加入字符串结束符
-					printf("LoRa RX: %s\r\n",Buffer);		
-
-				}
-				if(Buffer[0]=='h' && Buffer[1]=='e')
-					{
-						mode=1;
-						break;
-					}
-				else{
-							LED0=!LED0;
-							for(i=0;i<BUFFER_SIZE;i++)
-							Buffer[i] = 0;
-							Radio->StartRx( );	
-						}						
-					
-				//SX1276LoRaStartCAD();				
-			}
-					if(mode==1){
-						break;
+	Rxinit();//should initialize the receive mode
+	while(1)
+	{
+		if(mode==1){
+			mode=0;
+			Radio->SetTxPacket( RFBuffer2, 128 );	
+			TxInit();
+				
+		}else{
+					SX1276Read(0x12,&RegValue);
+					if( (RegValue&0x40) == 0x40 ){//received done
+								Rxdoneprocess(RegValue);							
+					}else if(RegValue & (1<<3)){//Tx done								
+								Txdonepro(RegValue);
 					}
 		}
-	}else//TX模式
-	{							    
-		Radio->SetTxPacket( MY_TEST_Msg, 128 );	 
-			while(1){
-			while(Radio->Process( ) == RF_TX_DONE)
-			{
-				printf("LoRa TX: %s\r\n",sendBuf);
-				LED1=!LED1;
-				delay_ms(10);
-				//Radio->SetTxPacket( sendBuf, strlen(sendBuf) );   //RFLR_STATE_TX_INIT
-				Radio->StartRx( );
-				mode=0;
-				break;
-			}
-			if(mode == 0){
-				break;
-			}
-		}
-	} 
+		__WFI();
 	}
+
 }
 
 //外部中断初始化
@@ -139,6 +102,7 @@ void EXTI_Init(void)
 {
     GPIO_InitTypeDef GPIO_Initure;    
     __HAL_RCC_GPIOC_CLK_ENABLE();               //开启GPIOC时钟
+		__HAL_RCC_GPIOA_CLK_ENABLE(); 
 	
 		GPIO_Initure.Pin=GPIO_PIN_3;            //PC3
     GPIO_Initure.Mode=GPIO_MODE_INPUT;      //输入
@@ -152,32 +116,43 @@ void EXTI_Init(void)
 //    GPIO_Initure.Speed=GPIO_SPEED_HIGH;     //高速
 //    HAL_GPIO_Init(GPIOC,&GPIO_Initure);
 	
+			GPIO_Initure.Pin=GPIO_PIN_0;            //PC1
+			GPIO_Initure.Mode=GPIO_MODE_INPUT;      //输入
+			GPIO_Initure.Pull=GPIO_PULLDOWN;        //下拉
+			GPIO_Initure.Speed=GPIO_SPEED_HIGH;     //高速
+			HAL_GPIO_Init(GPIOA,&GPIO_Initure);
+		
 
     
-//    GPIO_Initure.Pin=GPIO_PIN_1;                //PC1
-//    GPIO_Initure.Mode=GPIO_MODE_IT_RISING;      //上升沿触发
-//    GPIO_Initure.Pull=GPIO_PULLDOWN;
-//    HAL_GPIO_Init(GPIOC,&GPIO_Initure);
+    GPIO_Initure.Pin=GPIO_PIN_0;                //PC1
+    GPIO_Initure.Mode=GPIO_MODE_IT_RISING;      //上升沿触发
+    GPIO_Initure.Pull=GPIO_PULLDOWN;
+    HAL_GPIO_Init(GPIOA,&GPIO_Initure);
 		
-//		GPIO_Initure.Pin=GPIO_PIN_3;                //PC1
-//    GPIO_Initure.Mode=GPIO_MODE_IT_RISING;      //上升沿触发
-//    GPIO_Initure.Pull=GPIO_PULLDOWN;
-//    HAL_GPIO_Init(GPIOC,&GPIO_Initure);
+		GPIO_Initure.Pin=GPIO_PIN_3;                //PC1
+    GPIO_Initure.Mode=GPIO_MODE_IT_RISING;      //上升沿触发
+    GPIO_Initure.Pull=GPIO_PULLDOWN;
+    HAL_GPIO_Init(GPIOC,&GPIO_Initure);
 	
 
 	
 	    //中断线1-PC1
-//    HAL_NVIC_SetPriority(EXTI1_IRQn,2,0);       //抢占优先级为2，子优先级为0
-//    HAL_NVIC_EnableIRQ(EXTI1_IRQn);             //使能中断线1
+    HAL_NVIC_SetPriority(EXTI0_IRQn,2,0);       //抢占优先级为2，子优先级为0
+    HAL_NVIC_EnableIRQ(EXTI0_IRQn);             //使能中断线0
 		
 			    //中断线1-PC3
-//    HAL_NVIC_SetPriority(EXTI3_IRQn,2,0);       //抢占优先级为2，子优先级为0
-//    HAL_NVIC_EnableIRQ(EXTI3_IRQn);             //使能中断线3
+    HAL_NVIC_SetPriority(EXTI3_IRQn,2,0);       //抢占优先级为2，子优先级为0
+    HAL_NVIC_EnableIRQ(EXTI3_IRQn);             //使能中断线3
 }
 
 void EXTI3_IRQHandler(void)
 {
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);		//调用中断处理公用函数
+}
+
+void EXTI0_IRQHandler(void)
+{
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);		//调用中断处理公用函数
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
@@ -187,21 +162,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		
 	switch(gpio)
     {
-        case GPIO_PIN_1:
+        case GPIO_PIN_0:
 						printf("进入了pin1中断: %x\r\n",gpio);
-            if(SX1276ReadDio3()==1) 
-            {
-							LED0 = !LED0;
-            }
+							LED0 = !LED0;   
+							mode=1;        
             break;
         case GPIO_PIN_3:
 						printf("进入了pin3中断: %x\r\n",gpio);
-						isCAD=1;
-            if(SX1276ReadDio4()==1)  //LED3翻转
-            {
 							LED3 = !LED3;
-							isCAD=1;
-            }
             break;
 
     }

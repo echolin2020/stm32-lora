@@ -26,20 +26,38 @@ Project File Date:  02/26/2020
 
 <h2>Output:</h2>
 Build target 'NRF24L01'
-compiling main.c...
-main.c(88): warning:  #223-D: function "strlen" declared implicitly
-                                if( strlen(Buffer) != 0 )
-main.c(41): warning:  #177-D: variable "key" was declared but never referenced
-        u8 key,mode;
-main.c(42): warning:  #177-D: variable "t" was declared but never referenced
-        u16 t=0,i=0;    
-main.c(44): warning:  #177-D: variable "txN" was declared but never referenced
-        uint8_t txN=0;  
-main.c: 4 warnings, 0 errors
+compiling sx1276-LoRa.c...
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(964): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+                                                                if( strlen(Buffer1) != 0 )
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(969): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+                                                                        Buffer1[strlen(Buffer1)]=0;//¼ÓÈë×Ö·û´®½áÊø·û
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(996): warning:  #940-D: missing return statement at end of non-void function "Rxdoneprocess"
+  }
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(830): warning:  #550-D: variable "myrssi" was set but never used
+                double myrssi;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(831): warning:  #177-D: variable "errorFre" was declared but never referenced
+                        long errorFre;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(832): warning:  #550-D: variable "result" was set but never used
+      uint32_t result = RF_BUSY;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(1000): warning:  #177-D: variable "errorFre" was declared but never referenced
+                                long errorFre;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(1001): warning:  #177-D: variable "result" was declared but never referenced
+                                uint32_t result = RF_BUSY;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(1064): warning:  #177-D: variable "errorFre" was declared but never referenced
+                                long errorFre;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(1065): warning:  #550-D: variable "result" was set but never used
+                                uint32_t result = RF_BUSY;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(1091): warning:  #177-D: variable "errorFre" was declared but never referenced
+                                long errorFre;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(1092): warning:  #177-D: variable "result" was declared but never referenced
+                                uint32_t result = RF_BUSY;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c(1093): warning:  #177-D: variable "regValue" was declared but never referenced
+                                uint8_t regValue=0;
+..\HARDWARE\SX1278\radio\sx1276-LoRa.c: 13 warnings, 0 errors
 linking...
-Program Size: Code=20838 RO-data=1214 RW-data=188 ZI-data=3068  
+Program Size: Code=22014 RO-data=1326 RW-data=188 ZI-data=3164  
 FromELF: creating hex file...
-"..\OBJ\NRF24L01.axf" - 0 Error(s), 4 Warning(s).
+"..\OBJ\NRF24L01.axf" - 0 Error(s), 13 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE

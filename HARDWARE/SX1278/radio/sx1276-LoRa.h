@@ -856,6 +856,10 @@ int8_t SX1276LoRaGetPacketSnr( void );
  * \retval rssiValue Current RSSI value in [dBm]
  */
 double SX1276LoRaGetPacketRssi( void );
+void Rxinit(void);
+void Txdonepro(uint8_t regValue);
+void TxInit(void);
+bool Rxdoneprocess(uint8_t regValue);
 
 void SX1276LoRaStartCAD( void );
 /*!
