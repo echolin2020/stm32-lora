@@ -26,11 +26,11 @@
 
 static uint16_t BufferSize = BUFFER_SIZE;			// RF buffer size
 static uint8_t  Buffer[BUFFER_SIZE];				// RF buffer
-const uint8_t RFBuffer2[]="echo hello world hello lora hello world hello lorahello world hello lora hello world hello lorahello world hello";
+const uint8_t RFBuffer2[]="echo hello world";
 uint8_t  BufferTx[BUFFER_SIZE];				// RF buffer
 extern uint8_t RFBuffer;
 tRadioDriver *Radio = NULL;
-const uint8_t MY_TEST_Msg[] = "hello world hello lora hello world hello lorahello world hello lora hello world hello lorahello world hello lora";
+const uint8_t MY_TEST_Msg[] = "hello world hello";
 uint32_t aa,bb,cc,dd;
 void EXTI_Init(void);
 __IO bool isCAD;
@@ -60,10 +60,7 @@ int main(void)
 	SX1278_Init();    		    		  //初始化SX1278 
 	EXTI_Init();	
 	SX1276Reset();	
-//	while(1){
-//		__WFI();
-//		LED0 = !LED0;
-//	}
+
 	
 	while(SX1278_Check())
 	{
@@ -81,15 +78,18 @@ int main(void)
 	{
 		if(mode==1){
 			mode=0;
-			Radio->SetTxPacket( RFBuffer2, 128 );	
+			Radio->SetTxPacket( RFBuffer2, 21 );	
 			TxInit();
 				
-		}else{
+		}else if(mode==3){
+					mode=0;
 					SX1276Read(0x12,&RegValue);
 					if( (RegValue&0x40) == 0x40 ){//received done
-								Rxdoneprocess(RegValue);							
-					}else if(RegValue & (1<<3)){//Tx done								
+								Rxdoneprocess(RegValue);	
+								Rxinit();
+					}else if( (RegValue&0x08) == 0x08){//Tx done								
 								Txdonepro(RegValue);
+								Rxinit();
 					}
 		}
 		__WFI();
@@ -170,6 +170,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         case GPIO_PIN_3:
 						printf("进入了pin3中断: %x\r\n",gpio);
 							LED3 = !LED3;
+							mode=3;
             break;
 
     }

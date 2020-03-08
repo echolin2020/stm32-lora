@@ -907,6 +907,6 @@ void SX1276LoRaSetRFState( uint8_t state );
  *                                   RF_RX_DONE, RF_RX_TIMEOUT,
  *                                   RF_TX_DONE, RF_TX_TIMEOUT]
  */
-
+uint32_t SX1276LoRaProcess( void );
 
 #endif //__SX1276_LORA_H__

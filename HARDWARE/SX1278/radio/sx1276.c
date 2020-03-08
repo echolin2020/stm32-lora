@@ -311,7 +311,7 @@ uint32_t SX1276Process( void )
     }
     else
     {
-        return SX1276LoRaProcess( );
+       // return SX1276LoRaProcess( );
     }
 }
 
