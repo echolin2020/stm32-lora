@@ -26,7 +26,7 @@
 
 static uint16_t BufferSize = BUFFER_SIZE;			// RF buffer size
 static uint8_t  Buffer[BUFFER_SIZE];				// RF buffer
-const uint8_t RFBuffer2[]="echo hello world";
+const uint8_t RFBuffer2[]="echo hello world\r\n";
 uint8_t  BufferTx[BUFFER_SIZE];				// RF buffer
 extern uint8_t RFBuffer;
 tRadioDriver *Radio = NULL;
@@ -76,11 +76,11 @@ int main(void)
 	Rxinit();//should initialize the receive mode
 	while(1)
 	{
+		HAL_NVIC_DisableIRQ(TIM3_IRQn);
 		if(mode==1){
-			mode=0;
-			Radio->SetTxPacket( RFBuffer2, 21 );	
-			TxInit();
-				
+					mode=0;
+					Radio->SetTxPacket( RFBuffer2, 21 );	
+					TxInit();				
 		}else if(mode==3){
 					mode=0;
 					SX1276Read(0x12,&RegValue);
@@ -92,6 +92,7 @@ int main(void)
 								Rxinit();
 					}
 		}
+		HAL_NVIC_EnableIRQ(TIM3_IRQn);
 		__WFI();
 	}
 
@@ -109,12 +110,7 @@ void EXTI_Init(void)
     GPIO_Initure.Pull=GPIO_PULLDOWN;        //下拉
     GPIO_Initure.Speed=GPIO_SPEED_HIGH;     //高速
     HAL_GPIO_Init(GPIOC,&GPIO_Initure);
-	
-//	  GPIO_Initure.Pin=GPIO_PIN_1;            //PC1
-//    GPIO_Initure.Mode=GPIO_MODE_INPUT;      //输入
-//    GPIO_Initure.Pull=GPIO_PULLDOWN;        //下拉
-//    GPIO_Initure.Speed=GPIO_SPEED_HIGH;     //高速
-//    HAL_GPIO_Init(GPIOC,&GPIO_Initure);
+
 	
 			GPIO_Initure.Pin=GPIO_PIN_0;            //PC1
 			GPIO_Initure.Mode=GPIO_MODE_INPUT;      //输入

@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////// 	
 
 
-
+extern __IO uint8_t mode;
 TIM_HandleTypeDef TIM3_Handler;      //定时器句柄 
 
 //通用定时器3中断初始化
@@ -63,6 +63,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if(htim==(&TIM3_Handler))
     {
         LED1=!LED1;        //LED1反转
+				if(TickCounter%1000 ==0)mode=1;
 				TickCounter++;
     }
 }
