@@ -30,7 +30,7 @@ void TIM3_Init(u16 arr,u16 psc)
     TIM3_Handler.Init.Prescaler=psc;                     //分频系数
     TIM3_Handler.Init.CounterMode=TIM_COUNTERMODE_UP;    //向上计数器
     TIM3_Handler.Init.Period=arr;                        //自动装载值
-    TIM3_Handler.Init.ClockDivision=TIM_CLOCKDIVISION_DIV1;//时钟分频因子
+    TIM3_Handler.Init.ClockDivision=TIM_CLOCKDIVISION_DIV1;//时钟分频因子  要修改一下，可以改这里
     HAL_TIM_Base_Init(&TIM3_Handler);
     
     HAL_TIM_Base_Start_IT(&TIM3_Handler); //使能定时器3和定时器3更新中断：TIM_IT_UPDATE   
@@ -63,7 +63,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if(htim==(&TIM3_Handler))
     {
         LED1=!LED1;        //LED1反转
-				if(TickCounter%1000 ==0)mode=1;
+				//if(TickCounter%1000 ==0)mode=1;//for test   if enabled, it will transmit one packet every second
 				TickCounter++;
     }
 }

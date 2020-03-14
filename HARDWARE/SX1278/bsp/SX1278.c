@@ -58,12 +58,12 @@ void SX1278_Init(void)
 //返回值:0，成功;1，失败	
 u8 SX1278_Check(void)
 {
-	u8 buf[5]={0X00,0XA5,0XA5,0XA5,0XA5};
+	u8 buf=0X00;
 
-	SPI2_SetSpeed(SPI_BAUDRATEPRESCALER_64); //spi速度为11.25Mhz（24L01的最大SPI时钟为10Mhz,这里大一点没关系）    	 
-	
-	SX1278_Read_Buf(0x06,buf,1); //读出写入的地址  
-	if(buf[0]!=0x6C)  return 1;//检测24L01错误	
+	//SPI2_SetSpeed(SPI_BAUDRATEPRESCALER_64); //spi速度为11.25Mhz（24L01的最大SPI时钟为10Mhz,这里大一点没关系）    	 
+	buf = SX1278_Read_Reg(0x06);
+	//SX1278_Read_Buf(0x06,buf,1); //读出写入的地址  
+	if(buf!=0x6C)  return 1;//检测24L01错误	
 	return 0;		 //检测到24L01
 }	 	 
 //SPI写寄存器

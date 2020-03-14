@@ -50,7 +50,7 @@ int main(void)
 	Stm32_Clock_Init(336,8,2,7);   //设置时钟,168Mhz
 	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);//echo added
 	BoardInit();								//echo added
-	TIM3_Init(10-1,8400-1);   			//1ms lora用 林 修改 echo modified
+	TIM3_Init(10-1,8400-1);   			//1ms lora用 林 修改 echo modified 0x270F是1秒
 	uart_init(115200);              //初始化USART	
 	delay_init(168);                //初始化延时函数 echo modified
 	delay_ms(10);
@@ -78,7 +78,7 @@ int main(void)
 	{
 		HAL_NVIC_DisableIRQ(TIM3_IRQn);
 		if(mode==1){
-					mode=0;
+					mode=0;//测试时，连续发送
 					Radio->SetTxPacket( RFBuffer2, 21 );	
 					TxInit();				
 		}else if(mode==3){
@@ -154,17 +154,17 @@ void EXTI0_IRQHandler(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 		uint16_t gpio = GPIO_Pin;
-    delay_ms(100);      //消抖
+    //delay_ms(100);      //消抖
 		
 	switch(gpio)
     {
         case GPIO_PIN_0:
-						printf("进入了pin1中断: %x\r\n",gpio);
+						//printf("进入了pin1中断: %x\r\n",gpio);
 							LED0 = !LED0;   
 							mode=1;        
             break;
         case GPIO_PIN_3:
-						printf("进入了pin3中断: %x\r\n",gpio);
+						//printf("进入了pin3中断: %x\r\n",gpio);
 							LED3 = !LED3;
 							mode=3;
             break;
