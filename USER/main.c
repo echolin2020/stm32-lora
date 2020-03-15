@@ -95,15 +95,16 @@ int main(void)
 					mode=0;
 					SX1276Read(0x12,&RegValue);
 					if( (RegValue&0x40) == 0x40 ){//received done
-								TIM4_Deinit();
-								//__HAL_TIM_CLEAR_IT(&TIM4_Handler, TIM_IT_UPDATE);
-								printf("1.5、 before TIM4 start\r\n");
+								
+								//TIM4_Deinit();
+								//printf("1.5、 before TIM4 start\r\n");
 								TIM4_Init(9999,8400-1);
+								HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
 								printf("2、 TIM4 start\r\n");
 								HAL_NVIC_EnableIRQ(TIM4_IRQn);
 								Rxdoneprocess(RegValue);	
 								//Rxinit();
-					}else if( (RegValue&0x08) == 0x08){//Tx done								
+					}else if( (RegValue&0x08) == 0x08){//Tx done							
 								Txdonepro(RegValue);
 								printf("6、 TX Done\r\n");
 								HAL_NVIC_DisableIRQ(TIM4_IRQn);
@@ -171,6 +172,7 @@ void EXTI_Init(void)
 
 void EXTI3_IRQHandler(void)
 {
+		
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);		//调用中断处理公用函数
 }
 
@@ -193,9 +195,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             break;
         case GPIO_PIN_3:
 						//printf("进入了pin3中断: %x\r\n",gpio);
-							LED3 = !LED3;
+							//LED3 = !LED3;
 							mode=3;
-							printf("1、 PC3 INT RX Done\r\n");
+							
+							//printf("1、 PC3 INT RX Done\r\n");
             break;
 
     }

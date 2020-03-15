@@ -98,6 +98,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				TickCounter++;
     }else if(htim==(&TIM4_Handler))
 		{
+			
 			LED0 = !LED0;
 			mode = 9;
 			printf("4¡¢ TIM4 done\r\n");

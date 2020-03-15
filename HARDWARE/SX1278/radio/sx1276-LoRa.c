@@ -635,7 +635,7 @@ void TxInit(void){
 		
         SX1276WriteBuffer( REG_LR_DIOMAPPING1, &SX1276LR->RegDioMapping1, 2 );
 				SX1276Write( REG_LR_IRQFLAGS, 0xFF  );
-
+				HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
         SX1276LoRaSetOpMode( RFLR_OPMODE_TRANSMITTER );	
 }
 
