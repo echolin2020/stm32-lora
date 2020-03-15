@@ -16,5 +16,7 @@
 extern TIM_HandleTypeDef TIM3_Handler;      //¶¨Ê±Æ÷¾ä±ú 
 
 void TIM3_Init(u16 arr,u16 psc);
+void TIM4_Init(u16 arr,u16 psc);
+void TIM4_Deinit(void);
 #endif
 

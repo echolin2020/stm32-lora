@@ -26,7 +26,28 @@ Project File Date:  02/26/2020
 
 <h2>Output:</h2>
 Build target 'NRF24L01'
-"..\OBJ\NRF24L01.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+main.c(45): warning:  #177-D: variable "myrssi" was declared but never referenced
+        double myrssi;
+main.c(46): warning:  #177-D: variable "key" was declared but never referenced
+        u8 key;
+main.c(47): warning:  #177-D: variable "t" was declared but never referenced
+        u16 t=0,i=0;    
+main.c(47): warning:  #177-D: variable "i" was declared but never referenced
+        u16 t=0,i=0;    
+main.c(49): warning:  #177-D: variable "txN" was declared but never referenced
+        uint8_t txN=0;  
+main.c(50): warning:  #177-D: variable "sendBuf" was declared but never referenced
+        char sendBuf[20];        
+main.c(27): warning:  #177-D: variable "BufferSize" was declared but never referenced
+  static uint16_t BufferSize = BUFFER_SIZE;                     // RF buffer size
+main.c(28): warning:  #177-D: variable "Buffer" was declared but never referenced
+  static uint8_t  Buffer[BUFFER_SIZE];                          // RF buffer
+main.c: 8 warnings, 0 errors
+linking...
+Program Size: Code=16814 RO-data=926 RW-data=188 ZI-data=3228  
+FromELF: creating hex file...
+"..\OBJ\NRF24L01.axf" - 0 Error(s), 8 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\stm32\software\NRF24L01lora\stm32-lora\USER\RTE

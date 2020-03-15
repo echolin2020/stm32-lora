@@ -27,6 +27,7 @@
 static uint16_t BufferSize = BUFFER_SIZE;			// RF buffer size
 static uint8_t  Buffer[BUFFER_SIZE];				// RF buffer
 const uint8_t RFBuffer2[]="echo hello world\r\n";
+const uint8_t RFBuffer3[]="echo hello world 3\r\n";
 uint8_t  BufferTx[BUFFER_SIZE];				// RF buffer
 extern uint8_t RFBuffer;
 tRadioDriver *Radio = NULL;
@@ -35,6 +36,7 @@ uint32_t aa,bb,cc,dd;
 void EXTI_Init(void);
 __IO bool isCAD;
 extern  __IO uint8_t RFLRState;
+extern TIM_HandleTypeDef TIM4_Handler;
 __IO uint8_t mode;
 
 int main(void)
@@ -50,12 +52,19 @@ int main(void)
 	Stm32_Clock_Init(336,8,2,7);   //设置时钟,168Mhz
 	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);//echo added
 	BoardInit();								//echo added
-	TIM3_Init(10-1,8400-1);   			//1ms lora用 林 修改 echo modified 0x270F是1秒
+	
 	uart_init(115200);              //初始化USART	
 	delay_init(168);                //初始化延时函数 echo modified
 	delay_ms(10);
 	LED_Init();                     //初始化LED 
-
+	
+	
+//	TIM4_Init(9999,8400-1);
+//	HAL_NVIC_EnableIRQ(TIM4_IRQn);
+//	while(1){
+//		__WFI();
+//	}
+	TIM3_Init(10-1,8400-1);   			//1ms lora用 林 修改 echo modified 0x270F是1秒
 	KEY_Init();                     //初始化按键
 	SX1278_Init();    		    		  //初始化SX1278 
 	EXTI_Init();	
@@ -76,7 +85,8 @@ int main(void)
 	Rxinit();//should initialize the receive mode
 	while(1)
 	{
-		HAL_NVIC_DisableIRQ(TIM3_IRQn);
+		
+		//HAL_NVIC_EnableIRQ(TIM3_IRQn);
 		if(mode==1){
 					mode=0;//测试时，连续发送
 					Radio->SetTxPacket( RFBuffer2, 21 );	
@@ -85,14 +95,32 @@ int main(void)
 					mode=0;
 					SX1276Read(0x12,&RegValue);
 					if( (RegValue&0x40) == 0x40 ){//received done
+								TIM4_Deinit();
+								//__HAL_TIM_CLEAR_IT(&TIM4_Handler, TIM_IT_UPDATE);
+								printf("1.5、 before TIM4 start\r\n");
+								TIM4_Init(9999,8400-1);
+								printf("2、 TIM4 start\r\n");
+								HAL_NVIC_EnableIRQ(TIM4_IRQn);
 								Rxdoneprocess(RegValue);	
-								Rxinit();
+								//Rxinit();
 					}else if( (RegValue&0x08) == 0x08){//Tx done								
 								Txdonepro(RegValue);
+								printf("6、 TX Done\r\n");
+								HAL_NVIC_DisableIRQ(TIM4_IRQn);
+								TIM4_Deinit();
 								Rxinit();
 					}
+		}else if(mode==9){
+					mode=0;
+					Radio->SetTxPacket( RFBuffer3, 21 );	
+					TxInit();	
+					printf("5、 mode9 TX\r\n");
 		}
-		HAL_NVIC_EnableIRQ(TIM3_IRQn);
+//		else if(mode==0){
+//					//Radio->Init();
+//					Rxinit();
+//		}
+		//HAL_NVIC_DisableIRQ(TIM3_IRQn);
 		__WFI();
 	}
 
@@ -167,6 +195,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 						//printf("进入了pin3中断: %x\r\n",gpio);
 							LED3 = !LED3;
 							mode=3;
+							printf("1、 PC3 INT RX Done\r\n");
             break;
 
     }

@@ -547,9 +547,15 @@ bool Rxdoneprocess(uint8_t regValue)
 								{
 									myrssi = SX1276ReadRssi();
 									//printf("Rssi = %12.6f\r\n", myrssi);
-									
+									if(Buffer1[0] != 's'){
+										HAL_NVIC_DisableIRQ(TIM4_IRQn);
+									}else{
+										SX1276Write( REG_LR_IRQFLAGSMASK, 0xFF );
+										//Radio->SetTxPacket( RFBuffer2, 21 );
+										SX1276LoRaSetOpMode( RFLR_OPMODE_STANDBY );
+									}
 									Buffer1[strlen(Buffer1)]=0;//¼ÓÈë×Ö·û´®½áÊø·û
-									printf("LoRa RX: %s\r\n",Buffer1);		
+									printf("3¡¢ LoRa RX: %s\r\n",Buffer1);		
 
 								}
         }
